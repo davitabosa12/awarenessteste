@@ -36,8 +36,8 @@
         <activity android:name=".FencesActivity" />
         <activity android:name=".GeofenceActivity" />
         <activity android:name=".HeadphoneActivity" />
-
-        <activity android:name=".RingerActivity"></activity>
+        <activity android:name=".RingerActivity" />
+        <activity android:name=".DetectActivity"></activity>
     </application>
 
 </manifest>
