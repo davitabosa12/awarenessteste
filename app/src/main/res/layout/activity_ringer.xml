@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="br.ufc.awarenessteste.RingerActivity">
+
+    <EditText
+        android:id="@+id/edt_hora"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="64dp"
+        android:layout_marginTop="64dp"
+        android:ems="10"
+        android:hint="Hora"
+        android:inputType="time"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Spinner
+        android:id="@+id/spinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="84dp"
+        android:entries="@array/modos"
+        app:layout_constraintEnd_toEndOf="@+id/edt_hora"
+        app:layout_constraintStart_toStartOf="@+id/edt_hora"
+        app:layout_constraintTop_toBottomOf="@+id/edt_hora" />
+
+    <Button
+        android:id="@+id/btn_add_fence"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="83dp"
+        android:text="Add fence"
+        app:layout_constraintTop_toBottomOf="@+id/spinner"
+        tools:layout_editor_absoluteX="64dp" />
+
+    <Button
+        android:id="@+id/btn_remove_all"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="57dp"
+        android:text="Remove all"
+        app:layout_constraintStart_toEndOf="@+id/btn_add_fence"
+        app:layout_constraintTop_toTopOf="@+id/btn_add_fence" />
+</android.support.constraint.ConstraintLayout>

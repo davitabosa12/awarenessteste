@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">AwarenessTeste</string>
+    <string name="ringer_normal">Vibrar e Tocar</string>
+    <string-array name="modos">
+        <item>Vibrar e tocar</item>
+        <item>Vibrar</item>
+        <item>Silencioso</item>
+    </string-array>
+</resources>
