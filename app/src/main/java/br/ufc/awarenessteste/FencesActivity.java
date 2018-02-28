@@ -26,7 +26,7 @@ public class FencesActivity extends AppCompatActivity {
         btnGeo2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(getApplicationContext(), RingerActivity.class );
+                Intent i = new Intent(getApplicationContext(), DetectActivity.class );
                 startActivity(i);
             }
         });
