@@ -101,7 +101,7 @@ public class DetectActivity extends AppCompatActivity {
 
         if(!fencesActivated){
             Intent i = new Intent("whatever");
-            PendingIntent pi = PendingIntent.getBroadcast(getApplicationContext(),777,i,0);
+            PendingIntent pi = PendingIntent.getBroadcast(getApplicationContext(),777,i,PendingIntent.FLAG_CANCEL_CURRENT );
             //registre as fences
             AwarenessFence fence_still = DetectedActivityFence.during(DetectedActivityFence.STILL);
             AwarenessFence fence_walking = DetectedActivityFence.during(DetectedActivityFence.WALKING);

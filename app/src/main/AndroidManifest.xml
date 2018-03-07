@@ -32,13 +32,18 @@
             android:name="com.google.android.nearby.messages.API_KEY"
             android:value="AIzaSyAUcVOTTUzJydkiyls_rGFzGEDdzZqxhQY" />
 
-
         <activity android:name=".SnapshotActivity" />
         <activity android:name=".FencesActivity" />
         <activity android:name=".GeofenceActivity" />
         <activity android:name=".HeadphoneActivity" />
         <activity android:name=".RingerActivity" />
-        <activity android:name=".DetectActivity"></activity>
+        <activity android:name=".DetectActivity" />
+        <activity android:name=".TestActivity" />
+
+        <service
+            android:name=".AwarenessTestService"
+            android:enabled="true"
+            android:exported="true"></service>
     </application>
 
 </manifest>

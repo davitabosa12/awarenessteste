@@ -10,9 +10,11 @@
         android:id="@+id/btn_fences"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="148dp"
-        android:layout_marginTop="140dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="176dp"
         android:text="Fences"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -20,9 +22,23 @@
         android:id="@+id/btn_snapshot"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="140dp"
+        android:layout_marginEnd="8dp"
         android:layout_marginTop="40dp"
         android:text="Snapshot"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/btn_fences"
+        app:layout_constraintHorizontal_bias="0.277"
+        app:layout_constraintStart_toStartOf="@+id/btn_fences"
         app:layout_constraintTop_toBottomOf="@+id/btn_fences" />
+
+    <Button
+        android:id="@+id/btn_testes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="60dp"
+        android:text="Playground"
+        app:layout_constraintEnd_toEndOf="@+id/btn_fences"
+        app:layout_constraintHorizontal_bias="0.371"
+        app:layout_constraintStart_toStartOf="@+id/btn_fences"
+        app:layout_constraintTop_toBottomOf="@+id/btn_snapshot" />
 </android.support.constraint.ConstraintLayout>

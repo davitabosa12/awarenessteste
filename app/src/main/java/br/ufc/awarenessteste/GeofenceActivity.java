@@ -189,14 +189,15 @@ class GeofenceReceiver extends BroadcastReceiver{
                         i.setData(Uri.parse("mailto:")); // only email apps should handle this
                         i.putExtra(Intent.EXTRA_TEXT, "Estou em " + nomeLocal);
                         i.putExtra(Intent.EXTRA_SUBJECT, "Estou em " + nomeLocal);
-                        PendingIntent pi = PendingIntent.getBroadcast(context, 777, i, PendingIntent.FLAG_CANCEL_CURRENT);
+                        PendingIntent pi = PendingIntent.getActivity(context, 777, i, PendingIntent.FLAG_CANCEL_CURRENT);
 
                         //construtor de notificacao
                         builder.setContentIntent(pi)
                                 .setContentText("Voce esta em " + nomeLocal)
-                                .setContentTitle("AwarenesTeste")
+                                .setContentTitle("AwarenessTeste")
                                 .setSmallIcon(R.mipmap.ic_launcher)
                                 .setTicker("Novo local")
+                                .setAutoCancel(true)
                                 .setDefaults(Notification.DEFAULT_ALL);
                         Notification not = builder.build();
 

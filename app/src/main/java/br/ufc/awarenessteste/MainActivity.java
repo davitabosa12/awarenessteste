@@ -29,10 +29,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         //Inicializar botoes
-        Button btnSnapshot, btnFences;
+        Button btnSnapshot, btnFences, btnTestes;
 
         btnSnapshot = findViewById(R.id.btn_snapshot);
         btnFences = findViewById(R.id.btn_fences);
+        btnTestes = findViewById(R.id.btn_testes);
 
         //On click listeners (muda a activity)
         btnSnapshot.setOnClickListener(new View.OnClickListener() {
@@ -47,6 +48,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(getApplicationContext(), FencesActivity.class);
+                startActivity(i);
+            }
+        });
+        btnTestes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getApplicationContext(), TestActivity.class);
                 startActivity(i);
             }
         });
