@@ -14,16 +14,16 @@ public class FencesActivity extends AppCompatActivity {
         setContentView(R.layout.activity_fences);
         setTitle("Fences");
 
-        Button btnHeadphone, btnGeo, btnGeo2;
+        Button btnHeadphone, btnGeo, btnActivityDetection;
 
         btnHeadphone = findViewById(R.id.btn_headphone);
 
         btnGeo = findViewById(R.id.btn_geo);
 
-        btnGeo2 = findViewById(R.id.btn_service);
+        btnActivityDetection = findViewById(R.id.btn_service);
 
 
-        btnGeo2.setOnClickListener(new View.OnClickListener() {
+        btnActivityDetection.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(getApplicationContext(), DetectActivity.class );

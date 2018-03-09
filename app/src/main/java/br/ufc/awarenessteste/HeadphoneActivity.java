@@ -33,12 +33,12 @@ public class HeadphoneActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_headphone);
         setTitle("Headphone Fence");
-        final String FENCE_RECEIVER_ACTION = "fence_receiver_action";
-        Intent i = new Intent(FENCE_RECEIVER_ACTION);
+
+        Intent i = new Intent(FenceFilters.HEADPHONE_FILTER);
         TextView texto = findViewById(R.id.txv_headphone);
         PendingIntent pi = PendingIntent.getBroadcast(this,0,i,0);
         MyFenceReceiver receiver = new MyFenceReceiver(texto);
-        registerReceiver(receiver,new IntentFilter(FENCE_RECEIVER_ACTION));
+        registerReceiver(receiver,new IntentFilter(FenceFilters.HEADPHONE_FILTER));
 
 
 

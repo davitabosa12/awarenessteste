@@ -73,7 +73,7 @@ public class GeofenceActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_geofence);
-        setTitle("Geofence");
+        setTitle("Email sender");
 
         final int PLACE_AUTOCOMPLETE_REQUEST_CODE = 21;
 
@@ -95,8 +95,16 @@ public class GeofenceActivity extends AppCompatActivity {
         start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-            setUpGeofence();
+            setUpGeofence(lugarEscolhido.getName().toString());
 
+            }
+        });
+
+        Button btnRemoveAllFences = findViewById(R.id.btn_remove_fences);
+        btnRemoveAllFences.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                removeAllLocationFences();
             }
         });
 
@@ -104,27 +112,20 @@ public class GeofenceActivity extends AppCompatActivity {
     private void callPlaceAutocomplete(){
         try {
             Intent intent =
-                    new PlaceAutocomplete.IntentBuilder(PlaceAutocomplete.MODE_FULLSCREEN)
+                    new PlaceAutocomplete.IntentBuilder(PlaceAutocomplete.MODE_OVERLAY)
                             .build(this);
             startActivityForResult(intent,PLACE_REQUEST_CODE);
 
         } catch (GooglePlayServicesRepairableException e) {
-            // TODO: Solucionar o erro.
+            e.printStackTrace();
         } catch (GooglePlayServicesNotAvailableException e) {
-            // TODO: Solucionar o erro.
+            e.printStackTrace();
         }
     }
 
     //setup awareness callbacks
-    public void setUpGeofence(){
+    public void setUpGeofence(String placeChosen){
         Log.d("setup geofence","Inicio da funcao");
-        final String FENCE_RECEIVER_ACTION = "fence_receiver_action";
-        Intent i = new Intent(FENCE_RECEIVER_ACTION);
-        i.putExtra("place",lugarEscolhido.getName());
-        Log.d("setup geofence","Lugar escolhido:" + lugarEscolhido.getName());
-        PendingIntent pi = PendingIntent.getBroadcast(this, 10, i, 0);
-        GeofenceReceiver receiver = new GeofenceReceiver(this);
-        registerReceiver(receiver, new IntentFilter(FENCE_RECEIVER_ACTION));
 
         //Awareness
         AwarenessFence geo;
@@ -140,8 +141,10 @@ public class GeofenceActivity extends AppCompatActivity {
         }else {
             LatLng latLng = lugarEscolhido.getLatLng();
             geo = LocationFence.entering(latLng.latitude,latLng.longitude,500);
+            PendingIntent pi = PendingIntent.getBroadcast(this,92,new Intent(FenceFilters.GEOFENCE_FILTER),PendingIntent.FLAG_UPDATE_CURRENT);
             Awareness.getFenceClient(this).updateFences(new FenceUpdateRequest.Builder()
-                    .addFence("place",geo,pi).build()).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    .addFence(placeChosen,geo,pi).build()) //a "key" da fence e' o lugar escolhido do usuario.
+                    .addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
                     if(task.isSuccessful()) {
@@ -158,62 +161,23 @@ public class GeofenceActivity extends AppCompatActivity {
 
 
     }
-}
-class GeofenceReceiver extends BroadcastReceiver{
 
-    Context ctx;
-
-    public GeofenceReceiver(Context context){
-        ctx = context;
-    }
-
-        @Override
-        public void onReceive(Context context, Intent intent) {
-
-        Intent outra  = intent;
-        Bundle extrar = outra.getExtras();
-        //tratar resposta do awareness
-            FenceState fenceState = FenceState.extract(intent);
-            if(TextUtils.equals("place", fenceState.getFenceKey())) {
-
-                switch (fenceState.getCurrentState()) {
-                    case FenceState.TRUE:
-                        Log.d("GeofenceReceiver", "Broadcast chegou aqui");
-                        NotificationCompat.Builder builder = new NotificationCompat.Builder(context);
-                        //pegar o nome do local
-                        String nomeLocal = intent.getStringExtra("place");
-                        Log.d("GeofenceReceiver", "Lugar escolhido:" + nomeLocal);
-
-                        //intent para abrir o email
-                        Intent i = new Intent(Intent.ACTION_SENDTO);
-                        i.setData(Uri.parse("mailto:")); // only email apps should handle this
-                        i.putExtra(Intent.EXTRA_TEXT, "Estou em " + nomeLocal);
-                        i.putExtra(Intent.EXTRA_SUBJECT, "Estou em " + nomeLocal);
-                        PendingIntent pi = PendingIntent.getActivity(context, 777, i, PendingIntent.FLAG_CANCEL_CURRENT);
-
-                        //construtor de notificacao
-                        builder.setContentIntent(pi)
-                                .setContentText("Voce esta em " + nomeLocal)
-                                .setContentTitle("AwarenessTeste")
-                                .setSmallIcon(R.mipmap.ic_launcher)
-                                .setTicker("Novo local")
-                                .setAutoCancel(true)
-                                .setDefaults(Notification.DEFAULT_ALL);
-                        Notification not = builder.build();
-
-                        //notificar
-                        NotificationManagerCompat nm = NotificationManagerCompat.from(context);
-                        nm.notify(777, not);
-
-                        break;
-                    case FenceState.FALSE:
-                        break;
-                    case FenceState.UNKNOWN: {
-                        break;
-                    }
+    public void removeAllLocationFences(){
+        PendingIntent pi = PendingIntent.getBroadcast(this,92,new Intent(FenceFilters.GEOFENCE_FILTER),PendingIntent.FLAG_UPDATE_CURRENT);
+        Awareness.getFenceClient(this).updateFences(new FenceUpdateRequest.Builder().removeFence(pi).build())
+        .addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if(task.isSuccessful()){
+                    Toast.makeText(getApplicationContext(),"All fences Removed.", Toast.LENGTH_SHORT).show();
+                    Log.d("Remove Fences", "All fences removes successfully");
+                }
+                else{
+                    Toast.makeText(getApplicationContext(),"Error removing fences", Toast.LENGTH_SHORT).show();
+                    Log.d("Remove Fences", "Error removing fences");
+                    task.getException().printStackTrace();
                 }
             }
-
+        });
     }
-
 }

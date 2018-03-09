@@ -38,7 +38,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="36dp"
-        android:text="Ringer"
+        android:text="Activity Detection"
         app:layout_constraintEnd_toEndOf="@+id/btn_headphone"
         app:layout_constraintStart_toStartOf="@+id/btn_headphone"
         app:layout_constraintTop_toBottomOf="@+id/btn_headphone" />
