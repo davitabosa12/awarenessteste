@@ -103,11 +103,11 @@ public class DetectActivity extends AppCompatActivity {
             Intent i = new Intent("whatever");
             PendingIntent pi = PendingIntent.getBroadcast(getApplicationContext(),777,i,PendingIntent.FLAG_CANCEL_CURRENT );
             //registre as fences
-            AwarenessFence fence_still = DetectedActivityFence.during(DetectedActivityFence.STILL);
-            AwarenessFence fence_walking = DetectedActivityFence.during(DetectedActivityFence.WALKING);
-            AwarenessFence fence_on_foot = DetectedActivityFence.during(DetectedActivityFence.ON_FOOT);
-            AwarenessFence fence_in_vehicle = DetectedActivityFence.during(DetectedActivityFence.IN_VEHICLE);
-            AwarenessFence fence_running = DetectedActivityFence.during(DetectedActivityFence.RUNNING);
+            AwarenessFence fence_still = AwarenessFence.or(DetectedActivityFence.during(DetectedActivityFence.STILL),DetectedActivityFence.starting(DetectedActivityFence.STILL));
+            AwarenessFence fence_walking = AwarenessFence.or(DetectedActivityFence.during(DetectedActivityFence.WALKING),DetectedActivityFence.starting(DetectedActivityFence.WALKING));
+            AwarenessFence fence_on_foot = AwarenessFence.or(DetectedActivityFence.during(DetectedActivityFence.ON_FOOT),DetectedActivityFence.starting(DetectedActivityFence.ON_FOOT));
+            AwarenessFence fence_in_vehicle = AwarenessFence.or(DetectedActivityFence.during(DetectedActivityFence.IN_VEHICLE),DetectedActivityFence.starting(DetectedActivityFence.IN_VEHICLE));
+            AwarenessFence fence_running = AwarenessFence.or(DetectedActivityFence.during(DetectedActivityFence.RUNNING),DetectedActivityFence.starting(DetectedActivityFence.RUNNING));
 
 
             fenceClient.updateFences(new FenceUpdateRequest.Builder()

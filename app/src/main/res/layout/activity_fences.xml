@@ -43,4 +43,16 @@
         app:layout_constraintStart_toStartOf="@+id/btn_headphone"
         app:layout_constraintTop_toBottomOf="@+id/btn_headphone" />
 
+    <Button
+        android:id="@+id/btn_and_fence"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="28dp"
+        android:text="And Fence"
+        app:layout_constraintEnd_toEndOf="@+id/btn_headphone"
+        app:layout_constraintStart_toStartOf="@+id/btn_headphone"
+        app:layout_constraintTop_toBottomOf="@+id/btn_geo" />
+
 </android.support.constraint.ConstraintLayout>

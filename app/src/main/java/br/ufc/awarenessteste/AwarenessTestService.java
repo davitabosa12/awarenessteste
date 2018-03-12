@@ -40,7 +40,7 @@ public class AwarenessTestService extends Service {
                 FenceState state = FenceState.extract(intent);
                 if (state.getCurrentState() == FenceState.TRUE) {
                     Log.d("Service test", "Headphone connected");
-                    pushNotification();
+                    pushNotification("Headphone conectado","Service Awareness","Headphone conectado");
                 }
                 else
                     Log.d("Service test", "False");
@@ -55,7 +55,6 @@ public class AwarenessTestService extends Service {
                     switch (fenceState.getCurrentState()) {
                         case FenceState.TRUE:
                             Log.d("GeofenceReceiver", "Broadcast chegou aqui");
-                            NotificationCompat.Builder builder = new NotificationCompat.Builder(context);
                             //pegar o nome do local que é a chave da fence
                             String nomeLocal = fenceState.getFenceKey();
                             Log.d("GeofenceReceiver", "Lugar escolhido:" + nomeLocal);
@@ -69,17 +68,35 @@ public class AwarenessTestService extends Service {
             }
         };
         registerReceiver(geofenceReceiver,new IntentFilter(FenceFilters.GEOFENCE_FILTER));
+        /// andfence broadcast receiver configuration ==============================================
+
+        BroadcastReceiver andReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                FenceState fenceState = FenceState.extract(intent);
+                switch (fenceState.getCurrentState()) {
+                    case FenceState.TRUE:
+                        pushNotification("Pronto para ouvir musicas?","AwareApp","Pronto para ouvir musicas?");
+                        break;
+                    case FenceState.FALSE:
+                        Log.d("Service test andfence", "FALSE");
+
+
+                }
+            }
+        };
+        registerReceiver(andReceiver,new IntentFilter(FenceFilters.AND_FILTER));
 
         return START_STICKY;
     }
 
-    private void pushNotification(){
+    private void pushNotification(String contentText, String contentTitle, String ticker){
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
 
-        builder .setContentText("Teste de notificacao")
-                .setContentTitle("Service Awareness")
+        builder .setContentText(contentText)
+                .setContentTitle(contentTitle)
                 .setSmallIcon(R.mipmap.ic_launcher)
-                .setTicker("Teste de Serviço")
+                .setTicker(ticker)
                 .setAutoCancel(true)
                 .setDefaults(Notification.DEFAULT_ALL);
         Notification not = builder.build();

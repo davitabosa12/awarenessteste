@@ -43,7 +43,9 @@
         <service
             android:name=".AwarenessTestService"
             android:enabled="true"
-            android:exported="true"></service>
+            android:exported="true" />
+
+        <activity android:name=".AndFenceActivity"></activity>
     </application>
 
 </manifest>

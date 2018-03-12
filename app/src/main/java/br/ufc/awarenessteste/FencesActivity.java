@@ -14,13 +14,15 @@ public class FencesActivity extends AppCompatActivity {
         setContentView(R.layout.activity_fences);
         setTitle("Fences");
 
-        Button btnHeadphone, btnGeo, btnActivityDetection;
+        Button btnHeadphone, btnGeo, btnActivityDetection, btnAnd;
 
         btnHeadphone = findViewById(R.id.btn_headphone);
 
         btnGeo = findViewById(R.id.btn_geo);
 
         btnActivityDetection = findViewById(R.id.btn_service);
+
+        btnAnd= findViewById(R.id.btn_and_fence);
 
 
         btnActivityDetection.setOnClickListener(new View.OnClickListener() {
@@ -47,6 +49,13 @@ public class FencesActivity extends AppCompatActivity {
             }
         });
 
+        btnAnd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getApplicationContext(),AndFenceActivity.class );
+                startActivity(i);
+            }
+        });
 
     }
 }

@@ -9,5 +9,6 @@ package br.ufc.awarenessteste;
 public class FenceFilters {
     public static final String HEADPHONE_FILTER = "headphone_filter_action";
     public static final String GEOFENCE_FILTER = "geofence_filter_action";
+    public static final String AND_FILTER = "and_filter_action";
 
 }
